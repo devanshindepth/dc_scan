@@ -3,6 +3,7 @@
   "displayName": "AI Development Insights",
   "description": "Privacy-safe insights into AI tool usage patterns and coding effectiveness",
   "version": "0.1.0",
+  "publisher": "ai-dev-insights",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -116,8 +117,11 @@
     "statusBarItems": [
       {
         "id": "aiDevInsights.status",
+        "name": "AI Dev Insights Status",
+        "text": "$(pulse) AI Insights",
         "alignment": "right",
-        "priority": 100
+        "priority": 100,
+        "command": "aiDevInsights.statusBarMenu"
       }
     ],
     "keybindings": [
