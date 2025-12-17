@@ -1,4 +1,5 @@
 {
+  "$schema": "./.vscode/package.schema.json",
   "name": "ai-dev-insights-backend",
   "description": "Motia backend for AI Development Insights system",
   "version": "0.0.1",

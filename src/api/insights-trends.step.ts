@@ -1,10 +1,10 @@
 import type { ApiRouteConfig, Handlers } from 'motia';
 import { z } from 'zod';
-import { DatabaseManager } from '../services/DatabaseManager.js';
-import { InsightFormatter } from '../services/InsightFormatter.js';
+// import { DatabaseManager } from '../services/DatabaseManager.js';
+// import { InsightFormatter } from '../services/InsightFormatter.js';
 
-const db = new DatabaseManager();
-const formatter = new InsightFormatter();
+// const db = new DatabaseManager();
+// const formatter = new InsightFormatter();
 
 // Query parameters schema
 const querySchema = z.object({

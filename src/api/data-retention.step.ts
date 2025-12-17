@@ -1,10 +1,10 @@
 import type { ApiRouteConfig, Handlers } from 'motia';
 import { z } from 'zod';
-import { DatabaseManager } from '../services/DatabaseManager.js';
-import { DataRetentionManager } from '../services/services/DataRetentionManager.js';
+// import { DatabaseManager } from '../services/DatabaseManager.js';
+// import { DataRetentionManager } from '../services/services/DataRetentionManager.js';
 
-const db = new DatabaseManager();
-const retentionManager = new DataRetentionManager(db);
+// const db = new DatabaseManager();
+// const retentionManager = new DataRetentionManager(db);
 
 // Response schemas
 const storageReportSchema = z.object({

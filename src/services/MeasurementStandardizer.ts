@@ -329,7 +329,7 @@ export class MeasurementStandardizer {
             );
             const metricDates = new Set(backendMetrics.map(m => m.date));
             
-            const missingDates = [...eventDates].filter(date => !metricDates.has(date));
+            const missingDates = Array.from(eventDates).filter(date => !metricDates.has(date));
             if (missingDates.length > 0) {
                 issues.push(`Missing backend metrics for ${missingDates.length} days with extension events`);
             }

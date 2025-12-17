@@ -11,7 +11,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "*"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -114,16 +114,7 @@
         }
       }
     },
-    "statusBarItems": [
-      {
-        "id": "aiDevInsights.status",
-        "name": "AI Dev Insights Status",
-        "text": "$(pulse) AI Insights",
-        "alignment": "right",
-        "priority": 100,
-        "command": "aiDevInsights.statusBarMenu"
-      }
-    ],
+
     "keybindings": [
       {
         "command": "aiDevInsights.toggleTracking",

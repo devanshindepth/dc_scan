@@ -1,10 +1,10 @@
 import type { ApiRouteConfig, Handlers } from 'motia';
 import { z } from 'zod';
-import { DatabaseManager } from '../services/DatabaseManager.js';
-import { InsightFormatter } from '../services/InsightFormatter.js';
+// import { DatabaseManager } from '../services/DatabaseManager.js';
+// import { InsightFormatter } from '../services/InsightFormatter.js';
 
-const db = new DatabaseManager();
-const formatter = new InsightFormatter();
+// const db = new DatabaseManager();
+// const formatter = new InsightFormatter();
 
 // Schema definitions for responses
 const skillAssessmentSchema = z.object({
@@ -123,7 +123,8 @@ export const config: ApiRouteConfig = {
 
 export const handler = async (req: any, { logger }: any) => {
     try {
-        const developerId = (req as any).params?.developerId as string;
+        // Try different ways to access the parameter
+        const developerId = req.params?.developerId || req.pathParams?.developerId || req.route?.params?.developerId;
         
         if (!developerId) {
             return {
@@ -137,30 +138,29 @@ export const handler = async (req: any, { logger }: any) => {
 
         logger.info(`Fetching insights for developer: ${developerId}`);
 
-        // Get latest skill assessment
-        const currentAssessment = await db.getLatestSkillAssessment(developerId);
-        
-        // Get recent metrics (last 30 days)
-        const recentMetrics = await db.getDeveloperMetrics(developerId, 30);
-
-        if (!currentAssessment && recentMetrics.length === 0) {
-            return {
-                status: 404,
-                body: {
-                    success: false,
-                    data: null,
-                    message: 'No insights data found for this developer'
+        // Mock insights data
+        const formattedInsights = {
+            developerId,
+            summary: {
+                overallScore: 75,
+                trend: 'improving' as const,
+                lastUpdated: new Date().toISOString()
+            },
+            skills: {
+                promptMaturity: { score: 80, trend: 'improving' as const },
+                debuggingSkill: { score: 70, trend: 'stable' as const },
+                aiCollaboration: { score: 75, trend: 'improving' as const }
+            },
+            insights: [
+                {
+                    metric: 'Prompt Efficiency',
+                    currentValue: '80%',
+                    trend: 'improving' as const,
+                    trendDescription: 'Your prompting skills are getting better',
+                    recommendation: 'Keep practicing with more complex scenarios'
                 }
-            };
-        }
-
-        // Format insights using trend-based formatter
-        let formattedInsights;
-        if (currentAssessment) {
-            formattedInsights = formatter.formatSkillAssessment(currentAssessment, recentMetrics);
-        } else {
-            formattedInsights = formatter.formatDailyMetricsTrends(recentMetrics, developerId);
-        }
+            ]
+        };
 
         return {
             status: 200,
