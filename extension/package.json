@@ -1,0 +1,197 @@
+{
+  "name": "ai-dev-insights",
+  "displayName": "AI Development Insights",
+  "description": "Privacy-safe insights into AI tool usage patterns and coding effectiveness",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aiDevInsights.pauseTracking",
+        "title": "Pause Tracking",
+        "category": "AI Dev Insights"
+      },
+      {
+        "command": "aiDevInsights.resumeTracking",
+        "title": "Resume Tracking",
+        "category": "AI Dev Insights"
+      },
+      {
+        "command": "aiDevInsights.toggleTracking",
+        "title": "Toggle Tracking",
+        "category": "AI Dev Insights"
+      },
+      {
+        "command": "aiDevInsights.showInsights",
+        "title": "Show Insights",
+        "category": "AI Dev Insights"
+      },
+      {
+        "command": "aiDevInsights.exportData",
+        "title": "Export Data",
+        "category": "AI Dev Insights"
+      },
+      {
+        "command": "aiDevInsights.clearData",
+        "title": "Clear All Data",
+        "category": "AI Dev Insights"
+      },
+      {
+        "command": "aiDevInsights.showPrivacyInfo",
+        "title": "Privacy Information",
+        "category": "AI Dev Insights"
+      },
+      {
+        "command": "aiDevInsights.openPrivacySettings",
+        "title": "Privacy Settings",
+        "category": "AI Dev Insights"
+      },
+      {
+        "command": "aiDevInsights.statusBarMenu",
+        "title": "Status Bar Menu",
+        "category": "AI Dev Insights"
+      },
+      {
+        "command": "aiDevInsights.openSettings",
+        "title": "Open Settings",
+        "category": "AI Dev Insights"
+      }
+    ],
+    "configuration": {
+      "title": "AI Development Insights",
+      "properties": {
+        "aiDevInsights.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI Development Insights tracking"
+        },
+        "aiDevInsights.backendUrl": {
+          "type": "string",
+          "default": "http://localhost:3000",
+          "description": "Backend URL for syncing insights data"
+        },
+        "aiDevInsights.syncInterval": {
+          "type": "number",
+          "default": 300000,
+          "description": "Sync interval in milliseconds (default: 5 minutes)"
+        },
+        "aiDevInsights.retentionDays": {
+          "type": "number",
+          "default": 30,
+          "description": "Number of days to retain local data",
+          "minimum": 1,
+          "maximum": 365
+        },
+        "aiDevInsights.syncEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable syncing data to backend server"
+        },
+        "aiDevInsights.showPrivacyReminders": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show periodic privacy information reminders"
+        },
+        "aiDevInsights.allowAnonymousUsage": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow anonymous usage analytics to help improve the extension"
+        },
+        "aiDevInsights.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show AI Development Insights status in the status bar"
+        }
+      }
+    },
+    "statusBarItems": [
+      {
+        "id": "aiDevInsights.status",
+        "alignment": "right",
+        "priority": 100
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "aiDevInsights.toggleTracking",
+        "key": "ctrl+shift+alt+t",
+        "mac": "cmd+shift+alt+t",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "aiDevInsights.openPrivacySettings",
+        "key": "ctrl+shift+alt+p",
+        "mac": "cmd+shift+alt+p"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "aiDevInsights.pauseTracking",
+          "when": "config.aiDevInsights.enabled"
+        },
+        {
+          "command": "aiDevInsights.resumeTracking",
+          "when": "!config.aiDevInsights.enabled"
+        },
+        {
+          "command": "aiDevInsights.toggleTracking"
+        },
+        {
+          "command": "aiDevInsights.showInsights"
+        },
+        {
+          "command": "aiDevInsights.exportData"
+        },
+        {
+          "command": "aiDevInsights.clearData"
+        },
+        {
+          "command": "aiDevInsights.showPrivacyInfo"
+        },
+        {
+          "command": "aiDevInsights.openPrivacySettings"
+        },
+        {
+          "command": "aiDevInsights.openSettings"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "build": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "18.x",
+    "@types/mocha": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "@vscode/test-electron": "^2.2.0",
+    "fast-check": "^3.15.0",
+    "mocha": "^10.0.0",
+    "glob": "^8.0.0"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.0",
+    "node-fetch": "^3.3.0"
+  }
+}

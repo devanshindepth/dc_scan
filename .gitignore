@@ -6,3 +6,16 @@ venv
 .mermaid
 dist
 *.pyc
+
+# Database files
+data/*.db
+data/*.db-*
+
+# Extension build artifacts
+extension/out/
+extension/node_modules/
+extension/*.vsix
+
+# OS files
+.DS_Store
+Thumbs.db

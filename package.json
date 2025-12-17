@@ -1,6 +1,6 @@
 {
-  "name": "dc_scan",
-  "description": "",
+  "name": "ai-dev-insights-backend",
+  "description": "Motia backend for AI Development Insights system",
   "type": "module",
   "scripts": {
     "postinstall": "motia install",
@@ -8,7 +8,10 @@
     "start": "motia start",
     "generate-types": "motia generate-types",
     "build": "motia build",
-    "clean": "rm -rf dist node_modules python_modules .motia .mermaid"
+    "clean": "rm -rf dist node_modules python_modules .motia .mermaid",
+    "test:integration": "mocha --config tests/integration/.mocharc.json",
+    "test:integration:watch": "mocha --config tests/integration/.mocharc.json --watch",
+    "test:all": "npm run test:integration"
   },
   "keywords": [
     "motia"
@@ -22,11 +25,19 @@
     "@motiadev/plugin-observability": "^0.17.6-beta.187",
     "@motiadev/plugin-states": "^0.17.6-beta.187",
     "motia": "^0.17.6-beta.187",
+    "sqlite3": "^5.1.7",
+    "uuid": "^9.0.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {
     "@motiadev/workbench": "^0.17.6-beta.187",
     "@types/react": "^19.1.1",
+    "@types/sqlite3": "^3.1.11",
+    "@types/uuid": "^9.0.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.0",
+    "fast-check": "^3.15.0",
+    "mocha": "^10.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }

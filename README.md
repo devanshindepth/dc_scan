@@ -1,83 +1,50 @@
-# dc_scan
+# AI Development Insights
 
-A Motia project created with the starter template.
-
-## What is Motia?
-
-Motia is an open-source, unified backend framework that eliminates runtime fragmentation by bringing **APIs, background jobs, queueing, streaming, state, workflows, AI agents, observability, scaling, and deployment** into one unified system using a single core primitive, the **Step**.
-
-## Quick Start
-
-```bash
-# Start the development server
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-This starts the Motia runtime and the **Workbench** - a powerful UI for developing and debugging your workflows. By default, it's available at [`http://localhost:3000`](http://localhost:3000).
-
-```bash
-# Test your first endpoint
-curl http://localhost:3000/hello
-```
-
-## Step Types
-
-Every Step has a `type` that defines how it triggers:
-
-| Type | When it runs | Use case |
-|------|--------------|----------|
-| **`api`** | HTTP request | REST APIs, webhooks |
-| **`event`** | Event emitted | Background jobs, workflows |
-| **`cron`** | Schedule | Cleanup, reports, reminders |
-
-## Development Commands
-
-```bash
-# Start Workbench and development server
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-
-# Start production server (without hot reload)
-npm run start
-# or
-yarn start
-# or
-pnpm start
-
-# Generate TypeScript types from Step configs
-npm run generate-types
-# or
-yarn generate-types
-# or
-pnpm generate-types
-
-# Build project for deployment
-npm run build
-# or
-yarn build
-# or
-pnpm build
-```
+A VS Code extension paired with a Motia backend that provides ethical, privacy-safe insights into how developers work with AI tools.
 
 ## Project Structure
 
+This repository contains two main components:
+
+### VS Code Extension (`/extension`)
+- Client-side component that tracks developer interactions
+- Offline-first architecture with local SQLite storage
+- Privacy-safe event tracking (metadata only, no source code)
+
+### Motia Backend (`/src`)
+- Server-side component for processing and aggregating data
+- Event-driven architecture with API, Event, and Cron steps
+- Skill inference and insights generation
+
+## Development
+
+### Backend Development
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Generate types
+npm run generate-types
 ```
-steps/              # Your Step definitions (or use src/)
-motia.config.ts     # Motia configuration
+
+### Extension Development
+```bash
+# Navigate to extension directory
+cd extension
+
+# Install dependencies
+npm install
+
+# Build extension
+npm run build
+
+# Run tests
+npm test
 ```
 
-Steps are auto-discovered from your `steps/` or `src/` directories - no manual registration required.
+## Architecture
 
-## Learn More
-
-- [Documentation](https://motia.dev/docs) - Complete guides and API reference
-- [Quick Start Guide](https://motia.dev/docs/getting-started/quick-start) - Detailed getting started tutorial
-- [Core Concepts](https://motia.dev/docs/concepts/overview) - Learn about Steps and Motia architecture
-- [Discord Community](https://discord.gg/motia) - Get help and connect with other developers
+The system operates on an offline-first architecture where the VS Code extension tracks developer interactions locally and syncs with the Motia backend when connectivity is available. All data collection is privacy-safe, capturing only metadata and timing information without storing source code, prompts, or responses.
