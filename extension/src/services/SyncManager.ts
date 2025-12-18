@@ -3,10 +3,14 @@ import { LocalStorageManager } from './LocalStorageManager';
 import { SyncBatch } from '../types/events';
 
 // Use global fetch if available, otherwise use node-fetch
-const fetch = globalThis.fetch || (async (input: string | URL | RequestInfo, init?: RequestInit) => {
-    const { default: nodeFetch } = await import('node-fetch');
-    return nodeFetch(input as any, init as import('node-fetch').RequestInit);
-});
+const customFetch = async (input: string | URL, init?: RequestInit): Promise<Response> => {
+    if (globalThis.fetch) {
+        return globalThis.fetch(input, init);
+    }
+    const nodeFetch = await import('node-fetch');
+    return nodeFetch.default(input as any, init as any) as any;
+};
+
 
 export class SyncManager implements vscode.Disposable {
     private syncInterval: NodeJS.Timeout | null = null;
@@ -14,7 +18,7 @@ export class SyncManager implements vscode.Disposable {
     private retryCount: number = 0;
     private maxRetries: number = 3;
 
-    constructor(private localStorageManager: LocalStorageManager) {}
+    constructor(private localStorageManager: LocalStorageManager) { }
 
     public startPeriodicSync(): void {
         const config = vscode.workspace.getConfiguration('aiDevInsights');
@@ -32,23 +36,23 @@ export class SyncManager implements vscode.Disposable {
         try {
             const config = vscode.workspace.getConfiguration('aiDevInsights');
             const backendUrl = config.get<string>('backendUrl', 'http://localhost:3000');
-            
+
             if (!this.isOnline) {
                 console.log('Offline - skipping sync');
                 return;
             }
 
             const unsyncedEvents = await this.localStorageManager.getUnsyncedEvents(100);
-            
+
             if (unsyncedEvents.length === 0) {
                 console.log('No events to sync');
                 return;
             }
 
             const syncBatch = await this.localStorageManager.createSyncBatch(unsyncedEvents);
-            
+
             const success = await this.uploadBatch(backendUrl, syncBatch);
-            
+
             if (success) {
                 const eventIds = unsyncedEvents.map(event => event.id);
                 await this.localStorageManager.markEventsSynced(eventIds);
@@ -66,7 +70,7 @@ export class SyncManager implements vscode.Disposable {
 
     private async uploadBatch(backendUrl: string, batch: SyncBatch): Promise<boolean> {
         try {
-            const response = await fetch(`${backendUrl}/api/events/batch`, {
+            const response = await customFetch(`${backendUrl}/api/events/batch`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,12 +92,12 @@ export class SyncManager implements vscode.Disposable {
         } catch (error) {
             console.error('Network error during upload:', error);
             this.isOnline = false;
-            
+
             // Try to detect when we're back online
             setTimeout(() => {
                 this.checkConnectivity();
             }, 30000); // Check again in 30 seconds
-            
+
             return false;
         }
     }
@@ -102,11 +106,10 @@ export class SyncManager implements vscode.Disposable {
         try {
             const config = vscode.workspace.getConfiguration('aiDevInsights');
             const backendUrl = config.get<string>('backendUrl', 'http://localhost:3000');
-            
-            const response = await fetch(`${backendUrl}/health`, {
-                method: 'GET',
-                timeout: 5000
-            } as any);
+
+            const response = await customFetch(`${backendUrl}/health`, {
+                method: 'GET'
+            });
 
             if (response.ok) {
                 this.isOnline = true;
@@ -123,7 +126,7 @@ export class SyncManager implements vscode.Disposable {
 
     private handleSyncFailure(): void {
         this.retryCount++;
-        
+
         if (this.retryCount >= this.maxRetries) {
             console.log('Max retries reached - will try again on next sync cycle');
             this.retryCount = 0;
