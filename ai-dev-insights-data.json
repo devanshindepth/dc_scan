@@ -1,0 +1,100 @@
+{
+  "exportTimestamp": 1766035740230,
+  "eventCount": 7,
+  "events": [
+    {
+      "id": "42b2cc34-c1ce-4cf1-a5ce-513c4f4a91f7",
+      "developerId": "11a0faf0-a395-4218-89de-a0a03a6639cc",
+      "timestamp": 1766035662449,
+      "eventType": "keystroke_burst",
+      "metadata": {
+        "burstDuration": 1097,
+        "characterCount": 6
+      },
+      "sessionId": "d8e8585f-5d27-4f85-bb73-d43eed96697c",
+      "synced": false,
+      "createdAt": 1766035662449
+    },
+    {
+      "id": "d0243771-1e33-4535-9112-45a8e258b694",
+      "developerId": "11a0faf0-a395-4218-89de-a0a03a6639cc",
+      "timestamp": 1766035660446,
+      "eventType": "keystroke_burst",
+      "metadata": {
+        "burstDuration": 1417,
+        "characterCount": 7
+      },
+      "sessionId": "d8e8585f-5d27-4f85-bb73-d43eed96697c",
+      "synced": false,
+      "createdAt": 1766035660447
+    },
+    {
+      "id": "e4a9a8c4-6bb7-494a-8878-656e66acc9f1",
+      "developerId": "11a0faf0-a395-4218-89de-a0a03a6639cc",
+      "timestamp": 1766035658428,
+      "eventType": "keystroke_burst",
+      "metadata": {
+        "burstDuration": 3192,
+        "characterCount": 9
+      },
+      "sessionId": "d8e8585f-5d27-4f85-bb73-d43eed96697c",
+      "synced": false,
+      "createdAt": 1766035658428
+    },
+    {
+      "id": "8e85b073-391a-422e-b556-cd2b117f1e3e",
+      "developerId": "11a0faf0-a395-4218-89de-a0a03a6639cc",
+      "timestamp": 1766035654411,
+      "eventType": "keystroke_burst",
+      "metadata": {
+        "burstDuration": 3800,
+        "characterCount": 6
+      },
+      "sessionId": "d8e8585f-5d27-4f85-bb73-d43eed96697c",
+      "synced": false,
+      "createdAt": 1766035654412
+    },
+    {
+      "id": "2631a8ef-46dd-40e2-858c-226ea7a189ce",
+      "developerId": "11a0faf0-a395-4218-89de-a0a03a6639cc",
+      "timestamp": 1766035650396,
+      "eventType": "keystroke_burst",
+      "metadata": {
+        "burstDuration": 1857,
+        "characterCount": 10
+      },
+      "sessionId": "d8e8585f-5d27-4f85-bb73-d43eed96697c",
+      "synced": false,
+      "createdAt": 1766035650397
+    },
+    {
+      "id": "60464943-0420-4a1a-a5da-ada195b57017",
+      "developerId": "11a0faf0-a395-4218-89de-a0a03a6639cc",
+      "timestamp": 1766035648392,
+      "eventType": "keystroke_burst",
+      "metadata": {
+        "burstDuration": 2030,
+        "characterCount": 9
+      },
+      "sessionId": "d8e8585f-5d27-4f85-bb73-d43eed96697c",
+      "synced": false,
+      "createdAt": 1766035648393
+    },
+    {
+      "id": "74f0cffd-a46a-4309-a999-3e7e32c1e93e",
+      "developerId": "11a0faf0-a395-4218-89de-a0a03a6639cc",
+      "timestamp": 1766035640670,
+      "eventType": "file_switch",
+      "metadata": {
+        "fileExtension": "js",
+        "switchFrequency": 0,
+        "totalSwitchCount": 1,
+        "switchesPerMinute": 0.2,
+        "inDebuggingSession": false
+      },
+      "sessionId": "d8e8585f-5d27-4f85-bb73-d43eed96697c",
+      "synced": false,
+      "createdAt": 1766035640672
+    }
+  ]
+}

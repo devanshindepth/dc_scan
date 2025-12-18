@@ -110,6 +110,13 @@
           "default": 300000,
           "description": "Sync interval in milliseconds (default: 5 minutes)"
         },
+        "aiDevInsights.syncBatchSize": {
+          "type": "number",
+          "default": 10,
+          "description": "Number of events to sync per batch (default: 10, reduce if experiencing upload errors)",
+          "minimum": 1,
+          "maximum": 100
+        },
         "aiDevInsights.retentionDays": {
           "type": "number",
           "default": 30,
@@ -200,7 +207,6 @@
   "devDependencies": {
     "@types/mocha": "^10.0.0",
     "@types/node": "18.x",
-    "@types/sql.js": "^1.4.9",
     "@types/vscode": "^1.74.0",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
@@ -213,7 +219,6 @@
   },
   "dependencies": {
     "node-fetch": "^3.3.0",
-    "sql.js": "^1.13.0",
     "uuid": "^9.0.0"
   }
 }

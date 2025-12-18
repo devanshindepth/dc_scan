@@ -36,13 +36,14 @@ export class SyncManager implements vscode.Disposable {
         try {
             const config = vscode.workspace.getConfiguration('aiDevInsights');
             const backendUrl = config.get<string>('backendUrl', 'http://localhost:3000');
+            const batchSize = config.get<number>('syncBatchSize', 10); // Configurable batch size
 
             if (!this.isOnline) {
                 console.log('Offline - skipping sync');
                 return;
             }
 
-            const unsyncedEvents = await this.localStorageManager.getUnsyncedEvents(100);
+            const unsyncedEvents = await this.localStorageManager.getUnsyncedEvents(batchSize);
 
             if (unsyncedEvents.length === 0) {
                 console.log('No events to sync');
@@ -70,12 +71,23 @@ export class SyncManager implements vscode.Disposable {
 
     private async uploadBatch(backendUrl: string, batch: SyncBatch): Promise<boolean> {
         try {
+            const payload = JSON.stringify(batch);
+            const payloadSizeInBytes = Buffer.byteLength(payload, 'utf8');
+            const maxPayloadSize = 1024 * 1024; // 1MB limit
+
+            // Check if payload is too large
+            if (payloadSizeInBytes > maxPayloadSize) {
+                console.error(`Payload size (${payloadSizeInBytes} bytes) exceeds maximum (${maxPayloadSize} bytes). Skipping batch.`);
+                console.log('Consider reducing batch size further or implementing payload compression.');
+                return false;
+            }
+
             const response = await customFetch(`${backendUrl}/api/events/batch`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(batch)
+                body: payload
             });
 
             if (response.ok) {

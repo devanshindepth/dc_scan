@@ -15,13 +15,18 @@ let privacyController: PrivacyController;
 let settingsWebviewProvider: SettingsWebviewProvider;
 let jsonLogger: JsonLogger;
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
 	console.log('🚀 AI Development Insights extension is activating...');
 
 	try {
 		// Initialize services in order
 		console.log('📦 Initializing LocalStorageManager...');
 		localStorageManager = new LocalStorageManager(context.globalStorageUri.fsPath);
+		
+		// Wait for database to initialize before proceeding
+		console.log('⏳ Waiting for database initialization...');
+		await localStorageManager.waitForInitialization();
+		console.log('✅ Database initialized successfully');
 
 		console.log('🧠 Initializing HeuristicAnalyzer...');
 		heuristicAnalyzer = new HeuristicAnalyzer();
